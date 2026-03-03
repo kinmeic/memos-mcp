@@ -18,10 +18,15 @@ A Model Context Protocol (MCP) server for interacting with [Memos](https://useme
 
 2. Install dependencies:
 ```bash
-pip install -r requirements.txt
+npm install
 ```
 
-3. Set up environment variables:
+3. Build the project:
+```bash
+npm run build
+```
+
+4. Set up environment variables:
 ```bash
 export MEMOS_BASE_URL="https://your-memos-instance.com"
 export MEMOS_API_KEY="your-api-token"
@@ -43,7 +48,12 @@ The server uses the following environment variables:
 ### Running the Server
 
 ```bash
-python server.py
+npm start
+```
+
+Or for development with auto-reload:
+```bash
+npm run dev
 ```
 
 ### MCP Tools
@@ -166,7 +176,7 @@ Example:
     {
       "filename": "small-image.png",
       "type": "image/png",
-      "content": "iVBORw0KGgoAAAAAABJRU5ErkJggg=="
+      "content": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
     }
   ]
 }
@@ -271,8 +281,8 @@ To use this server with Claude Desktop, add it to your Claude Desktop config fil
 {
   "mcpServers": {
     "memos": {
-      "command": "python",
-      "args": ["/path/to/server.py"],
+      "command": "node",
+      "args": ["/path/to/memos-mcp/dist/index.js"],
       "env": {
         "MEMOS_BASE_URL": "https://your-memos-instance.com",
         "MEMOS_API_KEY": "your-api-token"
@@ -287,10 +297,18 @@ To use this server with Claude Desktop, add it to your Claude Desktop config fil
 ### Project Structure
 
 ```
-memos-mcp-server/
-├── server.py    # Main server implementation
-├── requirements.txt        # Python dependencies
-├── README.md              # This file
+memos-mcp/
+├── package.json           # Node.js project configuration
+├── tsconfig.json          # TypeScript configuration
+├── src/
+│   ├── index.ts           # Entry point
+│   ├── server.ts          # MCP server definition
+│   ├── memos-client.ts    # Memos API client
+│   ├── types.ts           # TypeScript type definitions
+│   └── tools/
+│       ├── memo-tools.ts      # Memo-related tools
+│       └── attachment-tools.ts # Attachment-related tools
+└── dist/                  # Compiled JavaScript output
 ```
 
 ## License
